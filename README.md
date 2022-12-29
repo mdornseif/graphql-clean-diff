@@ -1,6 +1,6 @@
 # graphql-clean-diff
 
-Diff two Javascript Objects suitable for frontend code.
+Diff two Javascript Objects suitable for frontend code. Geared towards GraphQL but not limited to that.
 
 With things like [react-jsonschema-form](https://github.com/rjsf-team/react-jsonschema-form/) and [json-schema-preset](https://www.npmjs.com/package/json-schema-preset) displaying changes between data on disk and in the form needs some clean up.
 
