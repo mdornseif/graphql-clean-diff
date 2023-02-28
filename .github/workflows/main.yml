@@ -97,6 +97,7 @@ jobs:
         run: yarn run doc:publish
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: github-actions-bot
           GIT_COMMITTER_NAME: github-actions-bot
           EMAIL: support+actions@github.com>
