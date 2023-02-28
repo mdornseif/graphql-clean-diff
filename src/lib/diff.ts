@@ -24,7 +24,6 @@ export function cleanDiff(originalObj: object, updatedObj: object): object {
   })
 }
 
-
 // from https://github.com/IndigoUnited/js-deep-sort-object/blob/master/index.js
 
 function isPlainObject(obj: any): boolean {

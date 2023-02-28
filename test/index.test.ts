@@ -5,7 +5,7 @@
  * Copyright (c) 2022 HUDORA GmbH
  */
 
-import { cleanDiff } from '../src/index';
+import { cleanDiff } from '../src/index'
 
 describe('cleanDiff', () => {
   it('diffs only some stuff', () => {
@@ -56,8 +56,8 @@ describe('cleanDiff', () => {
         },
         "s2": "",
       }
-    `);
-  });
+    `)
+  })
 
   const dbdata = {
     __typename: 'foobar',
@@ -66,13 +66,13 @@ describe('cleanDiff', () => {
     n: null,
     s: 'text',
     u: undefined,
-  };
+  }
   const formData = {
     e2: {},
     list: [1233, '', null],
     s: '',
     stuff: [],
-  };
+  }
 
   expect(cleanDiff(dbdata, formData)).toMatchInlineSnapshot(`
     Object {
@@ -82,5 +82,5 @@ describe('cleanDiff', () => {
       ],
       "s": "",
     }
-  `);
-});
+  `)
+})
