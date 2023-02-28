@@ -6,7 +6,7 @@ With things like [react-jsonschema-form](https://github.com/rjsf-team/react-json
 
 graphql-clean-diff:
 
-1. Removes properties typically of no interest to the user `['__typename', 'id', 'updated_at', 'created_at']`
+1. Removes properties typically of no interest to the user `['__typename', 'id', 'updated_at', 'created_at']` - implemented by `cleanGqlInput(data)`.
 2. Sorts object properties
 3. Removes `[]`,  `{}`, `undefined` and `null`. Notably it keeps `""`.
 4. Diffs the result. 
@@ -33,6 +33,7 @@ cleanDiff(dbdata, formData)
 ```
 
 results in this diff: `{"list": [1233,"",], "s": ""}`
+
 
 ## See also:
 
