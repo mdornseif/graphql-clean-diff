@@ -1,6 +1,6 @@
 import cleanDeep from 'clean-deep'
 import { diff } from 'deep-object-diff'
-import {omitDeep} from './ts-omit-deep'
+import { omitDeep } from './ts-omit-deep'
 import { omitDeepUnderscore } from './ts-omit-deep-underscore'
 
 // diese Properties wollen wir nicht im Editor
