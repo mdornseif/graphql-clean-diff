@@ -37,7 +37,10 @@ function defaultSortFn(a: any, b: any) {
   return a.localeCompare(b)
 }
 
-export function sortObject<T>(src: T, comparator?: undefined | ((a: string, b: string) => number)): T {
+export function sortObject<T extends {}>(
+  src: T,
+  comparator?: undefined | ((a: string, b: string) => number)
+): T {
   if (Array.isArray(src)) {
     return src.map(function (item) {
       return sortObject(item, comparator)
