@@ -5,7 +5,7 @@
  * Copyright (c) 2022 HUDORA GmbH
  */
 
-import { cleanDiff } from '../src/index'
+import { cleanDiff, omitDeep, omitDeepUnderscore } from '../src/index'
 
 describe('cleanDiff', () => {
   it('diffs only some stuff', () => {
@@ -43,44 +43,112 @@ describe('cleanDiff', () => {
         }
       )
     ).toMatchInlineSnapshot(`
-      Object {
-        "list": Object {
+      {
+        "list": {
           "0": 444,
         },
-        "list2": Array [
+        "list2": [
           1233,
           "",
         ],
-        "o": Object {
+        "o": {
           "i": 666,
         },
         "s2": "",
       }
     `)
-  })
 
-  const dbdata = {
-    __typename: 'foobar',
-    created_at: new Date('2022-02-22'),
-    id: 1234,
-    n: null,
-    s: 'text',
-    u: undefined,
-  }
-  const formData = {
-    e2: {},
-    list: [1233, '', null],
-    s: '',
-    stuff: [],
-  }
-
-  expect(cleanDiff(dbdata, formData)).toMatchInlineSnapshot(`
-    Object {
-      "list": Array [
-        1233,
-        "",
-      ],
-      "s": "",
+    const data = {
+      __typename: 'foobar',
+      created_at: new Date('2022-02-22'),
+      id: 1234,
+      n: null,
+      s: 'text',
+      u: undefined,
     }
-  `)
+    const formData = {
+      e2: {},
+      list: [1233, '', null],
+      s: '',
+      stuff: [],
+    }
+
+    expect(cleanDiff(data, formData)).toMatchInlineSnapshot(`
+      {
+        "list": [
+          1233,
+          "",
+        ],
+        "s": "",
+      }
+    `)
+  })
+})
+
+describe('omitDeep', () => {
+  it('diffs', () => {
+    const data = {
+      __typename: 'foobar',
+      _rev: '123',
+      created_at: new Date('2022-02-22'),
+      id: 1234,
+      n: null,
+      s: 'text',
+      u: undefined,
+      e2: { id: 345, s: 'text2' },
+      list: [1233, '', null],
+      stuff: [],
+    }
+    expect(omitDeep(data, ['__typename', 's'])).toMatchInlineSnapshot(`
+      {
+        "_rev": "123",
+        "created_at": 2022-02-22T00:00:00.000Z,
+        "e2": {
+          "id": 345,
+        },
+        "id": 1234,
+        "list": [
+          1233,
+          "",
+          null,
+        ],
+        "n": null,
+        "stuff": [],
+        "u": {},
+      }
+    `)
+  })
+})
+
+describe('omitDeepUnderscore', () => {
+  it('diffs', () => {
+    const data = {
+      __typename: 'foobar',
+      _rev: '123',
+      created_at: new Date('2022-02-22'),
+      id: 1234,
+      n: null,
+      s: 'text',
+      u: undefined,
+      e2: {},
+      list: [1233, '', null],
+      stuff: [],
+    }
+    expect(omitDeepUnderscore(data)).toMatchInlineSnapshot(`
+      {
+        "created_at": 2022-02-22T00:00:00.000Z,
+        "e2": {},
+        "id": 1234,
+        "list": [
+          1233,
+          "",
+          null,
+        ],
+        "n": null,
+        "s": "text",
+        "stuff": [],
+        "u": {},
+      }
+    `)
+  })
 })

@@ -1,89 +1,86 @@
 {
-  "author" : "Maximillian Dornseif",
-  "dependencies" : {
-    "clean-deep" : "^3.4.0",
-    "deep-object-diff" : "^1.1.7",
-    "omit-deep-lodash" : "^1.1.6"
+  "author": "Maximillian Dornseif",
+  "dependencies": {
+    "clean-deep": "^3.4.0",
+    "deep-object-diff": "^1.1.7",
+    "is-plain-obj": "<4.0.0"
   },
-  "devDependencies" : {
-    "@size-limit/preset-small-lib" : "^7.0.8",
-    "@tsconfig/recommended" : "^1.0.1",
-    "@types/omit-deep-lodash" : "^1.1.1",
-    "dts-cli" : "^1.3.0",
-    "husky" : "^7.0.4",
-    "size-limit" : "^7.0.8",
-    "tslib" : "^2.3.1",
-    "typescript" : "^4.5.5"
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/omit-deep-lodash": "^1.1.1",
+    "dts-cli": "2",
+    "husky": "^7.0.4",
+    "size-limit": "^7.0.8",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
   },
-  "engines" : {
-    "node" : ">=12"
+  "engines": {
+    "node": ">=12"
   },
-  "files" : [
+  "files": [
     "dist",
     "src"
   ],
-  "homepage" : "https://github.com/mdornseif/graphql-clean-diff",
-  "husky" : {
-    "hooks" : {
-      "pre-commit" : "dts lint"
+  "homepage": "https://github.com/mdornseif/graphql-clean-diff",
+  "husky": {
+    "hooks": {
+      "pre-commit": "dts lint"
     }
   },
-  "jest" : {
-    "testEnvironment" : "node"
+  "jest": {
+    "testEnvironment": "node"
   },
-  "license" : "MIT",
-  "lint-staged" : {
-    "*{css,scss,md,markdown,json,yaml,yml,graphql,html}" : "prettier -w",
-    "*{js,jsx,ts,tsx}" : [
+  "license": "MIT",
+  "lint-staged": {
+    "*{css,scss,md,markdown,json,yaml,yml,graphql,html}": "prettier -w",
+    "*{js,jsx,ts,tsx}": [
       "prettier -w",
       "yarn lint --fix"
     ],
-    "package.json" : "sort-package-json"
+    "package.json": "sort-package-json"
   },
-  "main" : "dist/index.js",
-  "module" : "dist/graphql-clean-diff.esm.js",
-  "name" : "graphql-clean-diff",
-  "peerDependencies" : {
-
+  "main": "dist/index.js",
+  "module": "dist/graphql-clean-diff.esm.js",
+  "name": "graphql-clean-diff",
+  "prettier": {
+    "printWidth": 110,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
-  "prettier" : {
-    "printWidth" : 110,
-    "semi" : false,
-    "singleQuote" : true,
-    "trailingComma" : "es5"
-  },
-  "release" : {
-    "branches" : [
+  "release": {
+    "branches": [
       "main",
       "next"
     ]
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/mdornseif/graphql-clean-diff"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdornseif/graphql-clean-diff"
   },
-  "scripts" : {
-    "analyze" : "size-limit --why",
-    "build" : "dts build",
-    "doc:build" : "npx typedoc@0.23  --skipErrorChecking  src/index.ts",
-    "doc:publish" : "npx gh-pages -m \"[ci skip] Updates\" -d docs",
-    "lint" : "dts lint",
-    "prepare" : "husky install",
-    "release" : "npx standard-version",
-    "size" : "size-limit",
-    "start" : "dts watch",
-    "test" : "dts test"
+  "scripts": {
+    "analyze": "size-limit --why",
+    "build": "dts build",
+    "doc:build": "npx typedoc@0.23  --skipErrorChecking  src/index.ts",
+    "doc:publish": "npx gh-pages -m \"[ci skip] Updates\" -d docs",
+    "lint": "dts lint",
+    "prepare": "husky install",
+    "release": "npx standard-version",
+    "size": "size-limit",
+    "start": "dts watch",
+    "test": "dts test"
   },
-  "size-limit" : [
+  "size-limit": [
     {
-      "limit" : "10 KB",
-      "path" : "dist/graphql-clean-diff.cjs.production.min.js"
+      "limit": "10 KB",
+      "path": "dist/graphql-clean-diff.cjs.production.min.js"
     },
     {
-      "limit" : "10 KB",
-      "path" : "dist/graphql-clean-diff.esm.js"
+      "limit": "10 KB",
+      "path": "dist/graphql-clean-diff.esm.js"
     }
   ],
-  "typings" : "dist/index.d.ts",
-  "version" : "1.0.4"
+  "typings": "dist/index.d.ts",
+  "version": "1.0.4"
 }

@@ -1,6 +1,7 @@
 import cleanDeep from 'clean-deep'
 import { diff } from 'deep-object-diff'
-import omitDeep from 'omit-deep-lodash'
+import {omitDeep} from './ts-omit-deep'
+import { omitDeepUnderscore } from './ts-omit-deep-underscore'
 
 // diese Properties wollen wir nicht im Editor
 export const OMIT_PROPERTIES = ['__typename', 'id', 'updated_at', 'created_at']
@@ -8,10 +9,12 @@ export const OMIT_PROPERTIES = ['__typename', 'id', 'updated_at', 'created_at']
 export function cleanGqlInput(entity: Record<string, any>, omit = OMIT_PROPERTIES): Record<string, any> {
   return sortObject(
     // cleanDeep( Removes empty objects, arrays, empty strings, NaN, null and undefined values from objects.
-    omitDeep(
-      // removes unwanted properties
-      entity,
-      ...omit
+    omitDeepUnderscore(
+      omitDeep(
+        // removes unwanted properties
+        entity,
+        omit
+      )
     )
   )
 }

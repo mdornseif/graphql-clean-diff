@@ -100,4 +100,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: github-actions-bot
           GIT_COMMITTER_NAME: github-actions-bot
-          EMAIL: support+actions@github.com>
+          EMAIL: support+actions@github.com
