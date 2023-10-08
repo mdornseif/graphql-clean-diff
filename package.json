@@ -1,64 +1,20 @@
 {
-  "author": "Maximillian Dornseif",
-  "dependencies": {
-    "clean-deep": "^3.4.0",
-    "deep-object-diff": "^1.1.7",
-    "is-plain-obj": "<4.0.0"
-  },
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.8",
-    "@tsconfig/recommended": "^1.0.1",
-    "@types/omit-deep-lodash": "^1.1.1",
-    "dts-cli": "2",
-    "husky": "^7.0.4",
-    "size-limit": "^7.0.8",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.5"
-  },
-  "engines": {
-    "node": ">=12"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "homepage": "https://github.com/mdornseif/graphql-clean-diff",
-  "husky": {
-    "hooks": {
-      "pre-commit": "dts lint"
-    }
-  },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "license": "MIT",
-  "lint-staged": {
-    "*{css,scss,md,markdown,json,yaml,yml,graphql,html}": "prettier -w",
-    "*{js,jsx,ts,tsx}": [
-      "prettier -w",
-      "yarn lint --fix"
-    ],
-    "package.json": "sort-package-json"
-  },
-  "main": "dist/index.js",
-  "module": "dist/graphql-clean-diff.esm.js",
   "name": "graphql-clean-diff",
-  "prettier": {
-    "printWidth": 110,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "release": {
-    "branches": [
-      "main",
-      "next"
-    ]
-  },
+  "version": "1.0.4",
+  "homepage": "https://github.com/mdornseif/graphql-clean-diff",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdornseif/graphql-clean-diff"
   },
+  "license": "MIT",
+  "author": "Maximillian Dornseif",
+  "main": "dist/index.js",
+  "module": "dist/graphql-clean-diff.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "analyze": "size-limit --why",
     "build": "dts build",
@@ -71,6 +27,54 @@
     "start": "dts watch",
     "test": "dts test"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "dts lint"
+    }
+  },
+  "lint-staged": {
+    "*{css,scss,md,markdown,json,yaml,yml,graphql,html}": "prettier -w",
+    "*{js,jsx,ts,tsx}": [
+      "prettier -w",
+      "yarn lint --fix"
+    ],
+    "package.json": "sort-package-json"
+  },
+  "prettier": {
+    "printWidth": 110,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "release": {
+    "branches": [
+      "main",
+      "next"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "clean-deep": "^3.4.0",
+    "deep-object-diff": "^1.1.7",
+    "is-plain-obj": "<4.0.0",
+    "lint-staged": "^14.0.1"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/omit-deep-lodash": "^1.1.1",
+    "dts-cli": "2",
+    "husky": "^7.0.4",
+    "size-limit": "^7.0.8",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
+  },
+  "packageManager": "yarn@1.22.19",
+  "engines": {
+    "node": ">=12"
+  },
   "size-limit": [
     {
       "limit": "10 KB",
@@ -80,7 +84,5 @@
       "limit": "10 KB",
       "path": "dist/graphql-clean-diff.esm.js"
     }
-  ],
-  "typings": "dist/index.d.ts",
-  "version": "1.0.4"
+  ]
 }

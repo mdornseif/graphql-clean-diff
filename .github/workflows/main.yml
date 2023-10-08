@@ -44,7 +44,7 @@ jobs:
         # run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NODE_AUTH_TOKEN }}" >> ~/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: yarn install --frozen-lockfile  --prefer-offline
+        run: yarn install --prefer-offline
 
       - name: Lint
         run: yarn lint
@@ -78,7 +78,7 @@ jobs:
         # run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NODE_AUTH_TOKEN }}" >> ~/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: yarn install --frozen-lockfile  --prefer-offline
+        run: yarn install --prefer-offline
 
       - name: Build 🏗
         # run: yarn prepare
