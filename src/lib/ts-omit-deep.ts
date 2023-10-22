@@ -21,6 +21,7 @@ export function omitDeep(value: any, keys: string[]) {
       try {
         value[i] = omitDeep(value[i], [keys].flat())
       } catch (e) {
+        console.warn(`Zugriff auf value[${i}] hat nicht geklappt`, value)
         console.error(e)
       }
     }
@@ -35,6 +36,7 @@ export function omitDeep(value: any, keys: string[]) {
     try {
       delete value[keys[j]]
     } catch (e) {
+      console.warn(`Löschen von ${keys[j]} hat nicht geklappt`, value)
       console.error(e)
     }
   }
@@ -44,6 +46,7 @@ export function omitDeep(value: any, keys: string[]) {
       try {
         value[key] = omitDeep(value[key], keys)
       } catch (e) {
+        console.warn(`Zugriff auf value[${key}] hat nicht geklappt`, value)
         console.error(e)
       }
     }
