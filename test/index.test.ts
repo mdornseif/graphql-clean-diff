@@ -5,7 +5,61 @@
  * Copyright (c) 2022 HUDORA GmbH
  */
 
-import { cleanDiff, omitDeep, omitDeepUnderscore } from '../src/index'
+import { diff } from 'deep-object-diff'
+import { cleanDiff, cleanGqlInput, omitDeep, omitDeepUnderscore, sortObject } from '../src/index'
+
+describe('sortObject', () => {
+  it('objects', () => {
+    expect(
+      sortObject({
+        list: [{ i: 1233, s: '', n: null }],
+      })
+    ).toMatchInlineSnapshot(`
+      {
+        "list": [
+          {
+            "i": 1233,
+            "n": null,
+            "s": "",
+          },
+        ],
+      }
+    `)
+  })
+
+  it('list', () => {
+    expect(sortObject([{ i: 1233, s: '', n: null }])).toMatchInlineSnapshot(`
+      [
+        {
+          "i": 1233,
+          "n": null,
+          "s": "",
+        },
+      ]
+    `)
+  })
+  it('longer lists', () => {
+    expect(
+      sortObject([
+        { i: 1233, s: 'foo', n: null },
+        { i: 1233, s: 'bar', n: null },
+      ])
+    ).toMatchInlineSnapshot(`
+      [
+        {
+          "i": 1233,
+          "n": null,
+          "s": "foo",
+        },
+        {
+          "i": 1233,
+          "n": null,
+          "s": "bar",
+        },
+      ]
+    `)
+  })
+})
 
 describe('cleanDiff', () => {
   it('diffs only some stuff', () => {
@@ -83,6 +137,77 @@ describe('cleanDiff', () => {
       }
     `)
   })
+
+  it('handles similar lists', () => {
+    expect(
+      cleanDiff(
+        {
+          list: [{ i: 1233, s: '', n: null }],
+        },
+
+        {
+          list: [{ i: 1233, s: '', n: null }],
+        }
+      )
+    ).toMatchInlineSnapshot(`{}`)
+  })
+  it('handles empty lists', () => {
+    expect(
+      cleanDiff(
+        {
+          list: [],
+        },
+
+        {
+          list: [123],
+        }
+      )
+    ).toMatchInlineSnapshot(`
+      {
+        "list": [123],
+      }
+    `)
+    expect(
+      cleanDiff(
+        {
+          list: [],
+        },
+
+        {
+          list: [{ i: 1233, s: '', n: null }],
+        }
+      )
+    ).toMatchInlineSnapshot(`
+      {
+        "list": [
+            "i": 1233,
+            "s": "",
+        ],
+        },
+      }
+    `)
+  })
+  it('handles lists with changed elements', () => {
+    expect(
+      cleanDiff(
+        {
+          list: [{ i: 1233, s: 'foo', n: null }],
+        },
+
+        {
+          list: [{ i: 1233, s: 'bar', n: null }],
+        }
+      )
+    ).toMatchInlineSnapshot(`
+      {
+        "list": {
+          "0": {
+            "s": "bar",
+          },
+        },
+      }
+    `)
+  })
 })
 
 describe('omitDeep', () => {
@@ -151,4 +276,45 @@ describe('omitDeepUnderscore', () => {
       }
     `)
   })
+})
+
+describe('omitfullStack', () => {
+  const originalObj = [{ i: 1233, s: 'foo', n: null }]
+  const updatedObj = [{ i: 1233, s: 'bar', n: null }]
+  test('cleanGqlInput', () => {
+    expect(cleanGqlInput(originalObj)).toMatchInlineSnapshot(`
+      [
+        {
+          "i": 1233,
+          "n": null,
+          "s": "foo",
+        },
+      ]
+    `)
+    expect(cleanGqlInput(updatedObj)).toMatchInlineSnapshot(`
+      [
+        {
+          "i": 1233,
+          "n": null,
+          "s": "bar",
+        },
+      ]
+    `)
+  })
+  test('diff', () => {
+    expect(diff(cleanGqlInput(originalObj), cleanGqlInput(updatedObj))).toMatchInlineSnapshot(`
+      {
+        "0": {
+          "s": "bar",
+        },
+      }
+    `)
+  })
+  // export function cleanDiff(originalObj: object, updatedObj: object): object {
+  //   return cleanDeep(diff(cleanGqlInput(originalObj), cleanGqlInput(updatedObj)), {
+  //     emptyArrays: true,
+  //     emptyObjects: true,
+  //     emptyStrings: false,
+  //   })
+  // }
 })

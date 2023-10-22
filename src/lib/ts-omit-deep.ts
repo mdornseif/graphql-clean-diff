@@ -18,7 +18,11 @@ export function omitDeep(value: any, keys: string[]) {
 
   if (Array.isArray(value)) {
     for (var i = 0; i < value.length; i++) {
-      value[i] = omitDeep(value[i], [keys].flat())
+      try {
+        value[i] = omitDeep(value[i], [keys].flat())
+      } catch (e) {
+        console.error(e)
+      }
     }
     return value
   }
@@ -28,12 +32,20 @@ export function omitDeep(value: any, keys: string[]) {
   }
 
   for (let j = 0; j < keys.length; j++) {
-    delete value[keys[j]]
+    try {
+      delete value[keys[j]]
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   for (const key in value) {
     if (value.hasOwnProperty(key)) {
-      value[key] = omitDeep(value[key], keys)
+      try {
+        value[key] = omitDeep(value[key], keys)
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 
