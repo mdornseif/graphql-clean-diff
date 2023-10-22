@@ -164,7 +164,9 @@ describe('cleanDiff', () => {
       )
     ).toMatchInlineSnapshot(`
       {
-        "list": [123],
+        "list": {
+          "0": 123,
+        },
       }
     `)
     expect(
@@ -179,10 +181,11 @@ describe('cleanDiff', () => {
       )
     ).toMatchInlineSnapshot(`
       {
-        "list": [
+        "list": {
+          "0": {
             "i": 1233,
             "s": "",
-        ],
+          },
         },
       }
     `)
@@ -211,7 +214,7 @@ describe('cleanDiff', () => {
 })
 
 describe('omitDeep', () => {
-  it('diffs', () => {
+  it('works', () => {
     const data = {
       __typename: 'foobar',
       _rev: '123',
@@ -221,7 +224,7 @@ describe('omitDeep', () => {
       s: 'text',
       u: undefined,
       e2: { id: 345, s: 'text2' },
-      list: [1233, '', null],
+      list: [1233, '', null, undefined, 0],
       stuff: [],
     }
     expect(omitDeep(data, ['__typename', 's'])).toMatchInlineSnapshot(`
@@ -236,6 +239,8 @@ describe('omitDeep', () => {
           1233,
           "",
           null,
+          {},
+          0,
         ],
         "n": null,
         "stuff": [],

@@ -20,6 +20,10 @@ export function cleanGqlInput(entity: Record<string, any>, omit = OMIT_PROPERTIE
 }
 
 export function cleanDiff(originalObj: object, updatedObj: object): object {
+  // We have an issue here with https://github.com/mattphillips/deep-object-diff/issues/14
+  // https://github.com/mattphillips/deep-object-diff/issues/79
+  // https://github.com/mattphillips/deep-object-diff/issues/94
+
   return cleanDeep(diff(cleanGqlInput(originalObj), cleanGqlInput(updatedObj)), {
     emptyArrays: true,
     emptyObjects: true,
@@ -42,7 +46,7 @@ export function sortObject<T extends {}>(
   comparator?: undefined | ((a: string, b: string) => number)
 ): T {
   if (Array.isArray(src)) {
-    return src.map(function (item) {
+    const ret = src.map(function (item) {
       return sortObject(item, comparator)
     }) as unknown as T
   }
@@ -55,7 +59,6 @@ export function sortObject<T extends {}>(
       .forEach(function (key: string) {
         ;(out as any)[key] = sortObject((src as any)[key] as any, comparator)
       })
-
     return out as T
   }
 
