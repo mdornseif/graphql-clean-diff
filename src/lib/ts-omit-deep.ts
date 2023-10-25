@@ -9,7 +9,7 @@
 
 import isPlainObject from 'is-plain-obj'
 
-export function omitDeep(value: any, keys: string[]) {
+export function omitDeep(value: any, keys: string[]): any {
   keys = [keys].flat()
 
   if (typeof value === 'undefined') {
@@ -37,7 +37,15 @@ export function omitDeep(value: any, keys: string[]) {
       try {
         value[key] = omitDeep(value[key], keys)
       } catch (e) {
-        console.warn(`Zugriff auf value[${key}] hat nicht geklappt`, value, keys, e)
+        console.warn(
+          `Zugriff auf value[${key}] hat nicht geklappt`,
+          value,
+          key,
+          value[key],
+          typeof value,
+          typeof value[key],
+          e
+        )
       }
     }
   }
