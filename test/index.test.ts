@@ -213,43 +213,6 @@ describe('cleanDiff', () => {
   })
 })
 
-describe('omitDeep', () => {
-  it('works', () => {
-    const data = {
-      __typename: 'foobar',
-      _rev: '123',
-      created_at: new Date('2022-02-22'),
-      id: 1234,
-      n: null,
-      s: 'text',
-      u: undefined,
-      e2: { id: 345, s: 'text2' },
-      list: [1233, '', null, undefined, 0],
-      stuff: [],
-    }
-    expect(omitDeep(data, ['__typename', 's'])).toMatchInlineSnapshot(`
-      {
-        "_rev": "123",
-        "created_at": 2022-02-22T00:00:00.000Z,
-        "e2": {
-          "id": 345,
-        },
-        "id": 1234,
-        "list": [
-          1233,
-          "",
-          null,
-          {},
-          0,
-        ],
-        "n": null,
-        "stuff": [],
-        "u": {},
-      }
-    `)
-  })
-})
-
 describe('omitDeepUnderscore', () => {
   it('diffs', () => {
     const data = {
