@@ -1,6 +1,6 @@
 {
   "name": "graphql-clean-diff",
-  "version": "1.0.4",
+  "version": "1.1.1",
   "homepage": "https://github.com/mdornseif/graphql-clean-diff",
   "repository": {
     "type": "git",
@@ -50,6 +50,13 @@
     "branches": [
       "main",
       "next"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
     ]
   },
   "jest": {
