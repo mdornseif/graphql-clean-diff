@@ -5,8 +5,7 @@
  * Copyright (c) 2023 HUDORA GmbH
  */
 
-import { diff } from 'deep-object-diff'
-import { cleanDiff, cleanGqlInput, omitDeep, omitDeepUnderscore, sortObject } from '../src/index'
+import { omitDeep } from '../src/index'
 
 describe('omitDeep', () => {
   it('works', () => {
