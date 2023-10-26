@@ -10,16 +10,13 @@
 import isPlainObject from 'is-plain-obj'
 
 /** Omit all properties starting with an underscore */
-export function omitDeepUnderscore(value: any) {
+export function omitDeepUnderscore(value: any): any {
   if (typeof value === 'undefined') {
     return {}
   }
 
   if (Array.isArray(value)) {
-    for (var i = 0; i < value.length; i++) {
-      value[i] = omitDeepUnderscore(value[i])
-    }
-    return value
+    return value.map((x) => omitDeepUnderscore(x))
   }
 
   if (!isPlainObject(value)) {
